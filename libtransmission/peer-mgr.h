@@ -136,4 +136,15 @@ void tr_peerMgrGotBadPiece(tr_torrent* tor, tr_piece_index_t pieceIndex);
 
 void tr_peerMgrPieceCompleted(tr_torrent* tor, tr_piece_index_t pieceIndex);
 
+static bool client_banned (const uint8_t * peer_id)
+{
+  bool banned = false;
+  if (peer_id == NULL) return banned;
+  banned |= !memcmp(peer_id+1, "SD", 2);
+  banned |= !memcmp(peer_id+1, "XL", 2);
+  // if (banned)
+  // tr_logAddNamedError ("Client banned.", "(Client filter)");
+  return banned;
+}
+
 /* @} */
